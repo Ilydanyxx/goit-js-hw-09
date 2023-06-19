@@ -13,13 +13,16 @@ function createPromise(position, delay) {
 }
 
 const form = document.querySelector("form");
-const delay = Number(document.querySelector('input[name="delay"]').value);
-const step = Number(document.querySelector('input[name="step"]').value);
-const amount = Number(document.querySelector('input[name="amount"]').value);
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  for (let i = 0; i < amount; i++) {
-  createPromise(i, delay)
+  const arr = form.childNodes;
+  const step = document.querySelector('input[name="step"]');
+  const amount = document.querySelector('input[name="amount"]');
+  const delayValue = Number(arr[0].value)
+  const amountValue = Number(amount.value)
+  let current = delayValue;
+  for (let i = 0; i < amountValue; i++) {
+  createPromise(i, current)
   .then(({ position, delay }) => {
     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
   })
@@ -27,12 +30,7 @@ form.addEventListener("submit", (e) => {
     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
   });
 
-  delay += step;
+  current += step;
 }
 
 })
-
-
-
-
-

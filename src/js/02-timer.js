@@ -15,7 +15,7 @@ const f = flatpickr("input#datetime-picker", {
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        console.log(selectedDates[0]);
+        
         let time = selectedDates[0].getTime();
         const now = new Date();
 
@@ -34,13 +34,15 @@ start.addEventListener("click", () => {
     timer = setInterval(() => {
         const dif = f.selectedDates[0].getTime() - new Date().getTime()
         const { days, hours, minutes, seconds } = convertMs(dif);
+        if (dif < 1000) {
+            clearInterval(timer);
+            return
+        }
         day.textContent = addLeadingZero(days);
         hour.textContent = addLeadingZero(hours);
         minute.textContent = addLeadingZero(minutes);
         second.textContent = addLeadingZero(seconds);
-        if (dif < 1000) {
-            clearInterval(timer);
-        }
+        
     }, 1000)
     
 })
@@ -64,9 +66,6 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
 
 

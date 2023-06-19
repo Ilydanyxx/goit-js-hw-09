@@ -5,7 +5,7 @@ start.addEventListener("click", () => {
     timer = setInterval(() => {
         body.style.backgroundColor = getRandomHexColor();
     }, 1000)
-    start.setAttribute("disabled", "")
+    start.setAttribute("disabled", "disabled")
 })
 stop.addEventListener("click", () => {
     clearInterval(timer);
